@@ -7,7 +7,7 @@ Microsoft Unity Extension which verifies registrations between parent and child 
 * Reference the `UnityRegistrationValidator.dll` in your project
 * Call the registration below
 
-```c#
+```cs
 var rootContainer = new UnityContainer();
 rootContainer.AddNewExtension<EnsureRegistrationDepthOrderExtension>();
 ```
