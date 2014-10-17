@@ -66,10 +66,10 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
  * Is that what you really wanted?
  * Consider the following case:
   * You disposed `childContainer` and your `ServiceDependency` is disposable
-  * At this point you have invalid instance of `IService`
+  * **At this point you have invalid instance of `IService`**
   * **This is most likely a side effect of unwanted changes and you want to avoid it**
    * **And this is exactly what is this extension trying to solve**
-    * By enabling this extension the build operation will fail
+    * **By enabling this extension the build operation will fail**
 
 ## How to enable extension
 
