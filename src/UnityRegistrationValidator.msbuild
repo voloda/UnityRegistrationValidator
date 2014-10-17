@@ -24,17 +24,20 @@
     <CallTarget Targets="SetAssemblyVersion" />
     <CallTarget Targets="Build" />
     <CallTarget Targets="Test" />
+    <CallTarget Targets="NugetPackages" />
   </Target>
 
   <Target Name="NugetPackages" DependsOnTargets="Build">
     <RemoveDir Directories="$(NugetSrcDirectory)" />
+
     <ItemGroup>
-      <UnityRegistrationValidatorSourceFiles Include="DbKeeperNet.Engine\bin\$(Configuration)\**\*.dll" />
+      <UnityRegistrationValidatorSourceFiles Include="UnityRegistrationValidator\bin\$(Configuration)\**\UnityRegistrationValidator.dll" />
+      <UnityRegistrationValidatorSourceFiles Include="UnityRegistrationValidator\bin\$(Configuration)\**\UnityRegistrationValidator.pdb" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(UnityRegistrationValidatorFiles)" DestinationFiles="@(UnityRegistrationValidatorSourceFiles->'$(NugetEngineSrcDirectory)\lib\net35\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(UnityRegistrationValidatorSourceFiles)" DestinationFiles="@(UnityRegistrationValidatorSourceFiles->'$(NugetSrcDirectory)\UnityRegistrationValidator\lib\net35\%(RecursiveDir)%(Filename)%(Extension)')" />
     
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetSrcDirectory)\UnityRegistrationValidator UnityRegistrationValidator.nuspec" />
+    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetSrcDirectory)\UnityRegistrationValidator Nuget\UnityRegistrationValidator\UnityRegistrationValidator.nuspec" />
   </Target>
   
   <Target Name="Build">
