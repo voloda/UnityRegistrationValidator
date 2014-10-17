@@ -57,8 +57,15 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 
 This actually will pass all the assertions. But let's analyze it a bit:
 * Let's step thru the test in debugger
-* Setup watch for `childContainerResult1._dependency` 
-* And for `childContainer2Result1._dependency`
+* Setup watches:
+ * `((ServiceDependency)((Service)childContainerResult1)._dependency)._dep1`
+ * `((ServiceDependency)((Service)childContainer2Result1)._dependency)._dep1`
+* You can see that both of them point to `Dep1`
+ * Is that what you really wanted?
+ * Consider the following case:
+  * You disposed `childContainer` and your `ServiceDependency` is disposable
+  * At this point you have invalid instance of `IService`
+  * *This is most likely a side effect of unwanted changes and you want to avoid it*
 
 ## How to enable extension
 
