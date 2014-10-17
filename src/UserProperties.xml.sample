@@ -1,0 +1,6 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- You can override any properties from Properties.xml here -->
+    <BuildNumber>1.0.0.0</BuildNumber>
+  </PropertyGroup>
+</Project>

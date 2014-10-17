@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="exists('UserProperties.xml')" Project="UserProperties.xml" />
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
+    <NUnitTool Condition="'$(NUnitTool)' == ''">packages\NUnit.Runners.2.6.3\tools\nunit-console.exe</NUnitTool>
+    <NugetTool Condition="'$(NugetTool)' == ''">.nuget\nuget.exe</NugetTool>
+    <TmpDir Condition="'$(TmpDir)' == ''">tmp</TmpDir>
+  </PropertyGroup>
+</Project>
