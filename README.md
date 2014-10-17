@@ -17,13 +17,22 @@ public interface IService
 
 public class ServiceDependency : IServiceDependency
 {
+    private readonly string _dep1;
+
+    public ServiceDependency(string dep1)
+    {
+        _dep1 = dep1;
+    }
 }
 
 public class Service : IService
 {
-  public Service(IServiceDependency dependency)
-  {
-  }
+    private readonly IServiceDependency _dependency;
+
+    public Service(IServiceDependency dependency)
+    {
+        _dependency = dependency;
+    }
 }
 ```
 
@@ -75,7 +84,7 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 
 * Reference the `UnityRegistrationValidator.dll` in your project
 * Call the registration below
- * The extension is available as a Nuget package
+ * The extension is available as a [**Nuget package**](https://www.nuget.org/packages/UnityRegistrationValidator)
 
 ```csharp
 var rootContainer = new UnityContainer();
@@ -84,9 +93,14 @@ rootContainer.AddNewExtension<EnsureRegistrationDepthOrderExtension>();
 
 ## Following rules are enforced after registering extension
 
-* For each registration is tracked depth in containers (starting the container in which resolve starts)
+* For each registration is tracked depth in containers (starting the container in which resolve starts).
 * If you register an object which
  * has dependency resolvable only inside the child container
  * and has ContainerControlledLifetimeManager()
 * the resolve will fail.
-* If you do this without the extension the resolve will succeed but the dependencies were most likely resolved in unexpected way (unless you really know what are you doing)
+* If you do this without the extension the resolve will succeed but the dependencies were most likely resolved in unexpected way (unless you really know what are you doing).
+
+## Conclusion
+
+* This extension allows you to validate the expected behavior.
+* Since it may have performance impact (it needs to track all the registrations as well as build operations) it may have negative performance impact.
