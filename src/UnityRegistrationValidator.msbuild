@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <Platform>Any CPU</Platform>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
 
     <NugetSrcDirectory>$(TmpDir)\nuget</NugetSrcDirectory>
   </PropertyGroup>
@@ -35,7 +35,7 @@
       <UnityRegistrationValidatorSourceFiles Include="UnityRegistrationValidator\bin\$(Configuration)\**\UnityRegistrationValidator.pdb" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(UnityRegistrationValidatorSourceFiles)" DestinationFiles="@(UnityRegistrationValidatorSourceFiles->'$(NugetSrcDirectory)\UnityRegistrationValidator\lib\net35\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(UnityRegistrationValidatorSourceFiles)" DestinationFiles="@(UnityRegistrationValidatorSourceFiles->'$(NugetSrcDirectory)\UnityRegistrationValidator\lib\net40\%(RecursiveDir)%(Filename)%(Extension)')" />
     
     <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetSrcDirectory)\UnityRegistrationValidator Nuget\UnityRegistrationValidator\UnityRegistrationValidator.nuspec" />
   </Target>
