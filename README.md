@@ -67,24 +67,24 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 **This actually will pass all the assertions.** 
 
 ### Let's analyze it a bit:
-* Let's step thru the test in debugger
-* Setup watches:
+* Let's step thru the test case in debugger.
+* Setup some watches:
  * `((ServiceDependency)((Service)childContainerResult1)._dependency)._dep1`
  * `((ServiceDependency)((Service)childContainer2Result1)._dependency)._dep1`
-* You can see that both of them point to `Dep1`
+* You can see that both of them point to `Dep1`.
  * Is that what you really wanted?
  * Consider the following case:
-  * You disposed `childContainer` and your `ServiceDependency` is disposable
-  * **At this point you have invalid instance of `IService`**
-  * **This is most likely a side effect of unwanted changes and you want to avoid it**
-   * **And this is exactly what is this extension trying to solve**
-    * **By enabling this extension the build operation will fail**
+  * You disposed `childContainer` and your `ServiceDependency` is disposable registered as `ContainerControlledLifetimeManager`.
+  * **At this point you have invalid instance of `IService`**.
+  * **This is most likely a side effect of unwanted changes and you want to avoid it**.
+   * **And this is exactly what is this extension trying to solve**.
+    * **By enabling this extension the build operation will fail**.
 
 ## How to enable extension
 
-* Reference the `UnityRegistrationValidator.dll` in your project
-* Call the registration below
- * The extension is available as a [**Nuget package**](https://www.nuget.org/packages/UnityRegistrationValidator)
+* Reference the `UnityRegistrationValidator.dll` in your project.
+* Call the registration below.
+ * The extension is available as a [**Nuget package**](https://www.nuget.org/packages/UnityRegistrationValidator).
 
 ```csharp
 var rootContainer = new UnityContainer();
@@ -104,3 +104,5 @@ rootContainer.AddNewExtension<EnsureRegistrationDepthOrderExtension>();
 
 * This extension allows you to validate the expected behavior.
 * Since it may have performance impact (it needs to track all the registrations as well as build operations) it may have negative performance impact.
+* This extension is intended to help you ensure expected behavior - but you have to always consider your circumstanes.
+* **You are using this extension on your own risk :-).**
