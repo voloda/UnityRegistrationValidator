@@ -75,6 +75,7 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 
 * Reference the `UnityRegistrationValidator.dll` in your project
 * Call the registration below
+ * The extension is available as a Nuget package
 
 ```csharp
 var rootContainer = new UnityContainer();
