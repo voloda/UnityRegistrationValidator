@@ -6,6 +6,22 @@ namespace UnityRegistrationValidator.Tests
     public abstract class UnityContainerCompabilityBaseTests
     {
         [Test]
+        public void PerCallResolutionViaChildContainerShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+            rootContainer.RegisterType<IRoot, Root>();
+
+            var childContainer = rootContainer.CreateChildContainer();
+
+            childContainer.RegisterType<IChild, Child>();
+            childContainer.RegisterType<IChild2, Child2>();
+
+            var result = childContainer.Resolve<IRoot>();
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
         public void RootResolutionViaChildContainerForChildRegisteredAsSingletonInRootContainerShouldWork()
         {
             var rootContainer = CreateUnityContainer();
@@ -81,6 +97,54 @@ namespace UnityRegistrationValidator.Tests
 
             Assert.AreEqual(r1, r2);
         }
+
+        [Test]
+        public void RootResolutionViaChildContainerForRootWithoutLifetimeManagerAndChildSingletonShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IRoot, Root>();
+
+            var childContainer = rootContainer.CreateChildContainer();
+            childContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+            childContainer.RegisterType<IChild2, Child2>(new ContainerControlledLifetimeManager());
+
+            var result = childContainer.Resolve<IRoot>();
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void RootResolutionViaChildContainerForRootWithoutLifetimeManagerAndChildInstancesShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IRoot, Root>();
+
+            var childContainer = rootContainer.CreateChildContainer();
+            childContainer.RegisterInstance<IChild>(new Child());
+            childContainer.RegisterType<IChild2, Child2>(new ContainerControlledLifetimeManager());
+
+            var result = childContainer.Resolve<IRoot>();
+
+            Assert.IsNotNull(result);
+        }   
+        
+        [Test]
+        public void RootResolutionViaChildContainerForRootWithoutLifetimeManagerAndChildSingletonInRootContainerShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IRoot, Root>();
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+            rootContainer.RegisterType<IChild2, Child2>(new ContainerControlledLifetimeManager());
+
+            var childContainer = rootContainer.CreateChildContainer();
+            
+            var result = childContainer.Resolve<IRoot>();
+
+            Assert.IsNotNull(result);
+        }
         
         [Test]
         public void ChildResolutionViaChildContainerForChildRegisteredAsInstanceShouldWork()
@@ -95,6 +159,21 @@ namespace UnityRegistrationValidator.Tests
             var child = childContainer.Resolve<IChild>();
             Assert.IsNotNull(child);
         }
+
+        [Test]
+        public void RootReferencingClassResolutionViaChildContainerForChildNotRegisteredShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IRoot, RootReferencingClass>(new ContainerControlledLifetimeManager());
+
+            var childContainer = rootContainer.CreateChildContainer();
+
+            var result = childContainer.Resolve<IRoot>();
+
+            Assert.IsNotNull(result);
+        }
+
 
         protected abstract UnityContainer CreateUnityContainer();
 

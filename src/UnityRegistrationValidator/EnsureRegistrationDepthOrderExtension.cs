@@ -29,7 +29,11 @@ namespace UnityRegistrationValidator
         {
             SubscribeEvents();
 
-            Context.Strategies.AddNew<EnsureRegistrationDepthOrderStrategy>(UnityBuildStage.TypeMapping);
+            if (_childLevel == 0)
+            {
+                Context.Strategies.AddNew<EnsureRegistrationDepthOrderStrategy>(UnityBuildStage.TypeMapping);
+            }
+
             Context.Policies.SetDefault(typeof(ITrackRegistrationsPolicy), _trackRegistrationsPolicy);
         }
         

@@ -29,8 +29,9 @@ namespace UnityRegistrationValidator
         {
             if (_unityContainers.Contains(key)) return currentDepth;
 
-            if (_parent == null)
-                throw new InvalidOperationException(string.Format("Cannot find registration depth of key {0}", key));
+            // Anything not found must be on current depth and happened somehow before
+            // the extension registration
+            if (_parent == null) return currentDepth;
 
             return _parent.GetRegistrationDepthInternal(key, currentDepth + 1);
         }
