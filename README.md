@@ -69,6 +69,7 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
   * At this point you have invalid instance of `IService`
   * **This is most likely a side effect of unwanted changes and you want to avoid it**
    * **And this is exactly what is this extension trying to solve**
+    * By enabling this extension the build operation will fail
 
 ## How to enable extension
 
