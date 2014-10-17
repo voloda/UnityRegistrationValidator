@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{CBC4C013-F
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{D22D361B-4D97-493D-81DE-770EF7368D21}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\UnityRegistrationValidator\UnityRegistrationValidator.nuspec = Nuget\UnityRegistrationValidator\UnityRegistrationValidator.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
