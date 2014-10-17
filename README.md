@@ -29,7 +29,7 @@ public class Service : IService
 
 Now let's setup some test case:
 
-```cs
+```csharp
 [Test]
 public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 {
@@ -55,7 +55,9 @@ public void ServiceResolutionViaTwoDifferentChildContainersShouldFail()
 }
 ```
 
-This actually will pass all the assertions. But let's analyze it a bit:
+**This actually will pass all the assertions.** 
+
+### Let's analyze it a bit:
 * Let's step thru the test in debugger
 * Setup watches:
  * `((ServiceDependency)((Service)childContainerResult1)._dependency)._dep1`
@@ -65,14 +67,15 @@ This actually will pass all the assertions. But let's analyze it a bit:
  * Consider the following case:
   * You disposed `childContainer` and your `ServiceDependency` is disposable
   * At this point you have invalid instance of `IService`
-  * *This is most likely a side effect of unwanted changes and you want to avoid it*
+  * **This is most likely a side effect of unwanted changes and you want to avoid it**
+   * **And this is exactly what is this extension trying to solve**
 
 ## How to enable extension
 
 * Reference the `UnityRegistrationValidator.dll` in your project
 * Call the registration below
 
-```cs
+```csharp
 var rootContainer = new UnityContainer();
 rootContainer.AddNewExtension<EnsureRegistrationDepthOrderExtension>();
 ```
