@@ -1,6 +1,7 @@
 # UnityRegistrationValidator
 
-Microsoft Unity Extension which verifies registrations between parent and child containers.
+Microsoft Unity Extension which verifies registrations between parent and child containers. This is mainly issue when you
+accidently inject a dependency from a child container to the parent container while using ContainerControlledLifetimeManager (singleton).
 
 ## Introduction
 
