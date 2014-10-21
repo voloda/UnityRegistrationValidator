@@ -109,3 +109,7 @@ rootContainer.AddNewExtension<EnsureRegistrationDepthOrderExtension>();
 * Since it may have performance impact (it needs to track all the registrations as well as build operations) it may have negative performance impact.
 * This extension is intended to help you ensure expected behavior - but you have to always consider your circumstanes.
 * **You are using this extension on your own risk :-).**
+
+## References
+* [https://www.nuget.org/packages/UnityRegistrationValidator](https://www.nuget.org/packages/UnityRegistrationValidator)
+* [https://github.com/voloda/UnityRegistrationValidator](https://github.com/voloda/UnityRegistrationValidator)
