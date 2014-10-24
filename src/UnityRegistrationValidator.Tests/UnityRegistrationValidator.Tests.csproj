@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="EnsureRegistrationDepthOrderExtensionCompatibilityTests.cs" />
     <Compile Include="EnsureRegistrationDepthOrderExtensionTests.cs" />
+    <Compile Include="MultiThreadingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTypes.cs" />
     <Compile Include="UnityContainerCompabilityBaseTests.cs" />

@@ -174,6 +174,21 @@ namespace UnityRegistrationValidator.Tests
             Assert.IsNotNull(result);
         }
 
+        [Test]
+        public void ChildResolutionViaChildContainerForChildrenRegisteredInRootContainerShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+            rootContainer.RegisterType<IChild2, Child2>();
+
+            var childContainer = rootContainer.CreateChildContainer();
+
+            var result1 = childContainer.Resolve<IChild2>();
+            var result2 = childContainer.Resolve<IChild2>();
+            
+            Assert.AreNotEqual(result1, result2);
+        }
 
         protected abstract UnityContainer CreateUnityContainer();
 

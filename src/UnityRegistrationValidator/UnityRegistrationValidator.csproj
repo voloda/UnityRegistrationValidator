@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnsureRegistrationDepthOrderExtension.cs" />
+    <Compile Include="EnsureRegistrationDepthOrderPolicy.cs" />
     <Compile Include="EnsureRegistrationDepthOrderStrategy.cs" />
+    <Compile Include="IEnsureRegistrationDepthOrderPolicy.cs" />
     <Compile Include="ITrackRegistrationsPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackRegistrationsPolicy.cs" />
