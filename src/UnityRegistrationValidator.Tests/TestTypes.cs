@@ -1,4 +1,6 @@
-﻿namespace UnityRegistrationValidator.Tests
+﻿using Microsoft.Practices.Unity;
+
+namespace UnityRegistrationValidator.Tests
 {
     public interface IChild
     {
@@ -7,7 +9,7 @@
 
     public interface IChild2
     {
-
+        IChild Child { get; }
     }
 
     public interface IRoot
@@ -17,12 +19,31 @@
 
     public class Child : IChild
     {
+        private readonly string _name;
+
+        [InjectionConstructor]
+        public Child()
+        {
+        }
+
+        public Child(string name)
+        {
+            _name = name;
+        }
     }
 
     public class Child2 : IChild2
     {
+        private readonly IChild _child;
+
         public Child2(IChild child)
         {
+            _child = child;
+        }
+
+        public IChild Child
+        {
+            get { return _child; }
         }
     }
 

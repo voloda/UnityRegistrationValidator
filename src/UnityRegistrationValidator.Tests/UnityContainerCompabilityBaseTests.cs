@@ -190,6 +190,83 @@ namespace UnityRegistrationValidator.Tests
             Assert.AreNotEqual(result1, result2);
         }
 
+        [Test]
+        public void ChildResolutionViaChildContainerForChildReRegisteredInChildContainerShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+            rootContainer.RegisterType<IChild2, Child2>();
+
+            var childContainer = rootContainer.CreateChildContainer();
+
+            var newChild = new Child("Child");
+            childContainer.RegisterInstance<IChild>(newChild);
+
+            var result1 = childContainer.Resolve<IChild2>();
+            var result2 = childContainer.Resolve<IChild2>();
+
+            Assert.AreNotEqual(result1, result2);
+            Assert.AreEqual(newChild, result1.Child);
+            Assert.AreEqual(newChild, result2.Child);
+        }
+
+        [Test]
+        public void ChildResolutionViaChildContainerForChildReRegisteredInChildContainerAsPerCallResolutionShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+
+            var childContainer = rootContainer.CreateChildContainer();
+            childContainer.RegisterType<IChild, Child>();
+            
+            var result1 = childContainer.Resolve<IChild>();
+            var result2 = childContainer.Resolve<IChild>();
+            var rootResult = rootContainer.Resolve<IChild>();
+
+            Assert.AreEqual(result1, result2);
+            Assert.AreEqual(rootResult, result1);
+        }
+
+        [Test]
+        public void ChildResolutionViaChildAndRootContainerForChildReRegisteredInChildContainerAlsoAsSingletonShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+
+            var childContainer = rootContainer.CreateChildContainer();
+            childContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+            
+            var result1 = childContainer.Resolve<IChild>();
+            var result2 = childContainer.Resolve<IChild>();
+            var rootResult = rootContainer.Resolve<IChild>();
+
+            Assert.AreEqual(result1, result2);
+            Assert.AreNotEqual(rootResult, result1);
+        }
+
+
+        [Test]
+        public void ChildResolutionViaRootAndChildContainerForChildReRegisteredInChildContainerAlsoAsSingletonShouldWork()
+        {
+            var rootContainer = CreateUnityContainer();
+
+            rootContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+
+            var childContainer = rootContainer.CreateChildContainer();
+            childContainer.RegisterType<IChild, Child>(new ContainerControlledLifetimeManager());
+
+            var rootResult = rootContainer.Resolve<IChild>();
+
+            var result1 = childContainer.Resolve<IChild>();
+            var result2 = childContainer.Resolve<IChild>();
+
+            Assert.AreEqual(result1, result2);
+            Assert.AreNotEqual(rootResult, result1);
+        }
+
         protected abstract UnityContainer CreateUnityContainer();
 
     }
