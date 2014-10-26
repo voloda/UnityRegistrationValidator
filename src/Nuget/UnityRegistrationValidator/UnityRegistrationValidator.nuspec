@@ -15,7 +15,7 @@ UnityRegistrationValidator is a simple Microsoft Unity Extension which allows to
 Initial release
     </releaseNotes>
     <copyright>Copyright 2014 Vladimir Kloz</copyright>
-    <tags>Microsoft Unity</tags>
+    <tags>Microsoft Unity IoC</tags>
     <dependencies>
        <dependency id="Unity" version="2.1.505.2" />
     </dependencies>
