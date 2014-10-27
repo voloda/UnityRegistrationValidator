@@ -12,7 +12,7 @@
 UnityRegistrationValidator is a simple Microsoft Unity Extension which allows to verify setup for ContainerControlledLifetimeManager dependencies.
 </description>
     <releaseNotes>
-Initial release
+Multithreading bugfixes
     </releaseNotes>
     <copyright>Copyright 2014 Vladimir Kloz</copyright>
     <tags>Microsoft Unity IoC</tags>
