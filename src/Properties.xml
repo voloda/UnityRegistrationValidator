@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
-    <NUnitTool Condition="'$(NUnitTool)' == ''">packages\NUnit.Runners.2.6.3\tools\nunit-console.exe</NUnitTool>
+    <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
     <NugetTool Condition="'$(NugetTool)' == ''">.nuget\nuget.exe</NugetTool>
     <TmpDir Condition="'$(TmpDir)' == ''">tmp</TmpDir>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\packages\MSBuildTasks.1.4.0.78\tools</MSBuildCommunityTasksPath>
