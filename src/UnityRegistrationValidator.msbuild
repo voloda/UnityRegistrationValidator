@@ -10,7 +10,7 @@
   </PropertyGroup>
   
   <Target Name="Test" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\UnityRegistrationValidator.Tests\bin\$(Configuration)\UnityRegistrationValidator.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /labels /noxml "$(SrcRootDir)\UnityRegistrationValidator.Tests\bin\$(Configuration)\UnityRegistrationValidator.Tests.dll"' />
   </Target>
 
   <Target Name="SetAssemblyVersion">
@@ -24,7 +24,7 @@
     <CallTarget Targets="SetAssemblyVersion" />
     <CallTarget Targets="Build" />
     <CallTarget Targets="Test" />
-    <CallTarget Targets="NugetPackages" />
+    <CallTarget Targets="NugetPackages" Condition="'$(CreateBinaries)' == 'true'" />
   </Target>
 
   <Target Name="NugetPackages" DependsOnTargets="Build">
