@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/1ar4sb78460n4nbd/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/unityregistrationvalidator-249/branch/master)
 
 # UnityRegistrationValidator
 
